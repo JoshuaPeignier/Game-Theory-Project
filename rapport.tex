@@ -1,0 +1,276 @@
+% !TEX spellcheck = en-US
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{url,color,amstext,amsmath,amssymb,amsthm,tikz,tikz-inet,pgf,pgfplots}
+\usepackage{fp,float}
+
+\def\colorpat{red}
+\def\colorbruno{blue} % Bruno plus doux que Patrick
+
+\newif\ifnotes\notestrue
+%\notesfalse             %%  Uncomment this line to hide footnotes.  <----
+%
+\def\boxnote#1#2{\ifnotes\fbox{\footnote{\ }}\ \footnotetext{ From #1: #2}\fi}
+%
+\newcommand\mpat[1]{{\color{\colorpat} #1}}
+\newcommand\spat[1]{{\scriptsize{\color{violet} #1}}}
+\newcommand\hspat[1]{}
+\def\pat#1{\boxnote{Patrick}{\color{\colorpat}#1}}
+\def\hpat#1{}
+\newcommand\mbruno[1]{{\color{\colorbruno} #1}}
+\def\bruno#1{\boxnote{Bruno}{\color{\colorbruno}#1}}
+\def\hbruno#1{}
+
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{definition}{Definition}
+\newcommand\ind[1]{1\hspace{-.55ex}\mbox{\textnormal l}_{\{#1\}}}  %fonction indicatrice
+
+\gdef\figwidth{7cm}
+\gdef\figheight{6cm}
+\gdef\bc{b^{\rm c}}
+\gdef\bv{b^{\rm v}}
+\gdef\subc{{\tilde b}^{\rm c}}
+\gdef\subv{{\tilde b}^{\rm v}}
+\gdef\suv{{\tilde v}}
+\gdef\pc{p^{\rm c}}
+\gdef\pv{p^{\rm v}}
+\gdef\CTR{\text{\footnotesize CTR}}
+\gdef\dd{\mathrm{d}}
+\gdef\define{:=}
+%\gdef\Ealph{{\mathbb E}[\alpha]}
+%\gdef\Ealphbet{{\mathbb E}[\alpha\beta]}
+\gdef\Ealph{\bar{\alpha}}
+\gdef\Ebet{\bar{\beta}}
+\gdef\Ealphbet{\overline{\alpha\beta}}
+
+\renewcommand\S[1]{S_{\mathrm{#1}}}
+\newcommand\Rev[1]{R_{\mathrm{#1}}}
+
+\def\E {{\mathbb E}}
+\def\EE {{\mathbb E}}
+\def\FF {{\mathbb F}}
+\def\II {{\mathbb I}}
+\def\LL {{\mathbb L}}
+\def\NN {{\mathbb N}}
+\def\PP {{\mathbb P}}
+\def\RR {{\mathbb R}}
+\def\ZZ {{\mathbb Z}}
+
+\pgfcreateplotcyclelist{\mylist}{
+	{blue,thick},
+	{red,thick,dash pattern=on 6pt off 1pt on 2pt off 1pt}, 
+	{blue,thick,densely dashed},
+	{red,thick,dashed},
+	{blue,thick,densely dotted},
+	{red,thick,dotted}, 
+}
+
+
+\title{Community Network in Competition with ISPs}
+
+\author{Patrick Maill\'e\\ Institut Mines-T\'el\'ecom / T\'el\'ecom Bretagne \\ 2, rue de la Châtaigneraie, 35576 Cesson S\'evign\'e Cedex, France, \\
+       \tt{patrick.maille@telecom-bretagne.eu}
+\and Bruno Tuffin \\ Inria Rennes Bretagne Atlantique \\ Campus Universitaire de Beaulieu, 35042 Rennes Cedex, France \\
+       \tt{bruno.tuffin@inria.fr}
+       }
+\begin{document}
+\maketitle
+
+\begin{abstract}
+XXXXXXX
+\end{abstract}
+
+\section{Estelle's prior notes}
+This is a temporary section where I recall any questionnable decisions I made so that we will remember to debate them.
+
+We will suppose that $\int_\Omega f(v) g(v|u) dv = q_{max} < +\infty$.
+
+\section{Introduction}
+
+
+XXXXX Intro community networks
+
+XXXXXX Models: cf Marbach and Hubaux
+
+XXXX Our contribution instead: investigate the impact mobility and user density on community networks, with the competitive presence of an ISP.
+
+
+\section{Model}
+
+Consider a continuum of users characterized by their type $u$. This type typically defines a home location.
+There is a density $f(u)$ in terms of parameter $u$ running over space $\Omega$.
+
+
+We consider two ways for users to access the Internet: through a regular ISP, assumed to fully cover space, or through a community network. Let $D\subset \Omega$ be the set (domain) of users subscribing to  the community network.
+ 
+Each user $u$ has an average number of communication requests $m(u)$. Define $g(v|u)$ as the density that a given request from $u$is happening when at $v$.
+It models the mobility behavior of user $u$.
+Then the number (density) of requests at $u$ from the community network is
+$$
+n(u) =\int_D g(u|v) m(v) f(v) dv.
+$$
+
+A user $u$ chooses to subscribe to the ISP or the community network depending on the subscription price and a notion of quality which we define as the proportion of (or probability that) requests will be fulfilled. If made through the ISP, this probability is $1$. If made through the community network, it is 
+$$
+q_u=\int_D g(v|u)  f(v) dv.
+$$  
+
+Let $a$ be a parameter representing the sensitivity to quality. and $p_{I}$ (respectively $p_C$) the subscription price to the ISP (respectively the community network).
+ 
+ The utilities of $u$ for using the community network, the ISP, or none of them  are respectively
+ \begin{eqnarray*}
+ U_C(u) & = & a q_u -p_C  - c n(u)\\
+ U_I(u) & = & a -p_I \\
+ U_\emptyset (u)  & = & 0
+ \end{eqnarray*}
+ where $c n(u)$ models the disturbance from requests of others $u$ has to serve, $c$ corresponding to a unit cost.
+ 
+ User $u$'s choice is the one with the maximal utility.
+ 
+\subsubsection{Estelle 's notes about the model} 
+\subsection{Sub-model}
+For obvious reasons $p_i > 0$ and $p_c > 0$ (charity is not a valid option).
+
+As long as $U_I > 0$ a type u user is sure to choose $I$ it if he did not choose $C$.
+This means all users suscribe to one of the two services.
+
+Therefore $C$ chosen iff $U_c > U_i$.
+
+We define $p$ the diffrence of prices $p:= p_i - p_c$
+Therefore $p < a$.
+
+We normalize f so that $\int_\Omega f(v) dv =1$.
+
+We will use the notations
+\begin{itemize}
+\item $d_c := \int_D f(v)dv$
+\item $d_i := 1 - d_c$
+\item $q_{u,max} := \int_\Omega g(v|u) f(v)dv$
+\end{itemize} 
+ 
+ 
+\section{Game definition}
+ 
+ 
+We thus end up with a multilevel game where:
+\begin{enumerate}
+\item The ISP and community network play on the subscription prices, in order to maximize revenues (expressed as the product of price and mass of users). 
+\item Given the allocated qualities, users choose their network. 
+\end{enumerate}
+The game is played by backward induction, meaning that even if ISPs play first, they will make their decision strategically, by anticipating what will be the subsequent decision of users.
+
+
+ 
+\section{First case study}
+ 
+ We first consider the simplest situation where the mobility pattern is the same for all users:
+ $$ g(v|u)=g(v).$$
+
+In that case, $q_u$ does not depend on $u$:
+$$
+q_u=\int_D g(v) f(v) dv $$
+and $n(u)=\in_D g(u) m(v) f(v) dv = g(u) \int_D m(v) f(v) dv.$
+
+\subsection{A problimatic example}
+First, we must detemine if the values of $p_i$ and $p_c$ are sufficiant to determine the players revenues. We wish to show in this section that this isn't the case.
+
+To prove the previous statement we will choose a simple model with fixed values for $p_i$ and $p_c$ and show that this can result in sevral diffrent revenues.
+
+
+In our model, $p = a -\epsilon$. ($p_i$ and $p_c$ were preditermined and do not vary in this section). All users be considered identical : $g=cst, f=cst, m=cst ...$,
+ please note that in this situation all users will make the same choice (they are identical). Therefore $U_c = a g d_c -p_c -c m g d_c = g d_c (a-cm) -p_c.$
+If $cm > a$ then $d_c = 0$ since no one will choose a negative utility.
+
+Else case 1, $d_c = 1$.
+Then $U_c -U_i = g (a - cm) - a + a - \epsilon = g (a -cm) - \epsilon> 0$. This is coherent, if everyone chose $C$ then that means there are many networks to choose from so $C$ is the best choice.
+
+Else case 2, $d_c = 0$.
+Then $U_c - U_i = -\epsilon < 0$. This is also coherent, when no one is part of the community the community network is not intresting.
+
+
+This example shows that there can be diffent densities $d_c$ for a single price situation $p$. The set $Q(p)= Q(p_i,p_c)$ is the set of these densities. We will therefore nead to express our problem according to an other variable then $p$.
+
+\subsection{Examining the $g(u|v) = g(u)$ case}
+We define $b = c \int_D m(v) f(v) dv$
+A expressed previously, $u$ chooses $C$ if
+
+$$U_c > U_i \Leftrightarrow  a (q_u -1) +p > c n(u) = b g(u)$$
+
+Therefore we will define the fallowing
+\begin{itemize}
+\item $D_u(k) := \{u | g(u) < k\}$
+\item $q_u(k) := \int_{D_u(k)} f(v) g(v) dv$
+\item $b_u(k) :=\int_{D_u(k)} f(v) m(v) dv$.
+\item $d_u(k) = \int_{D_u(k)} f(v) dv$ 
+\item $\Phi(k,p) = a (q_u(k) -1) + p - b(k) k$
+\end{itemize}
+
+Therefore we can say that $D_u(k) = D <=> \Phi(k,p) = 0$.
+ 
+This is intresting since it means we now know that $p$ is a function of $k$.
+ $$p (k) = b(u) k - a(q_u(k) -1)$$
+
+We can also use the continuity of $\Phi$.
+
+Recall we assumed that $q_max$ was finite in other words that there is a limit to how good a service the community service provides.
+
+\begin{itemize}
+\item $\Phi$ is contenuous
+\item $\Phi(0,p) = p - a < 0$.
+\item $\Phi(+\infty,p) = -\infty$
+\end{itemize}
+
+This shows that the number of domains for a given price $p$ is finite. From this resuts that there are a finite number of contenuous functions $f$ such as $f(p(k)) = k$.
+
+\subsubsection{From $p$ to the rewards}
+Too options one we have $I$ that chooses to take $p_i = a$ then by evaluations of 
+
+We have $p_i = p + p_c$ et $0 < p_i < a$.
+
+$$p(k) = p_i + p_c$$
+
+$$G_i (p_i,k) = \{ p_i * (1 - d_u(k)) \}$$
+
+$$G_c (p_c,k) = \{ p_c* d_u(k)) \}$$
+
+We will use our $f$ functions.
+
+$$G_i (p_i,p_c) = \{ F_j : p_i \rightarrow p_i *(1 - d_u( f(p))) | \forall k, \exists p(k) \Rightarrow f(p(k)) = k \}$$
+
+$$H_i(p_i,p_c) = \dfrac{d G_i(p_i,p_c)}{dp_i} = \{F'_j : p_i \rightarrow (1 - d_u(f(p))) - p_i*\dfrac{dd_u(f(p))}{dp} \}$$
+
+Note that for all $j$ we have $F_j'$ that originates from $p$ and $F_j$.
+
+$$G_c (p_i,p_c) = \{ F_j : p_c \rightarrow p_c *d_u(f(p)) | \forall k, \exists p(k) \Rightarrow f(p(k)) = k \}$$
+
+$$H_c(p_i,p_c) =\dfrac{d G_c(p_i,p_c)}{dp_i} = \{F'_j : p_c \rightarrow d_u(f(p)) - p_c*\dfrac{dd_u(f(p))}{dp} \}$$
+
+So as to be able to exploit the values we compare $G_i$ and $G_c$ using the same $f$ 
+
+Therefore we look for every $f$ the conditions on $p_i$ and $p_c$ that result in $H_i = 0$ and $H_c = 0$. Once this is done we can deduce what the co-local-maximum of $G_i$ and $G_c$ are. Therefore we can find all the Nash equilibrum for the given $f$.
+
+By analysing all $f$'s and the results of a given $(p_i,p_c)$ that is a Nash equilibrum for one $f$ in all other $f$ functions we know all the parametters of the problem.
+
+
+
+
+XXXX TBC
+
+ \section{Second case study}
+ 
+ We consider a domain made of two cities separated by the country side, and the same behavior of all users in an area.
+ Formally, $\Omega=\Omega_{c_1}\cup \Omega_{c_2}\cup \Omega_s$ where $\Omega_{c_k}$ is for the population of City~$k$ and $\Omega_s$ for the population of the countryside.
+ 
+
+ For $k\in \{c_1,c_2,s\}$ and $u\in \Omega_k$, let $g_k(v|u)$ be the mobility behavior of $u$.
+ 
+ 
+ XXXXXX TBC
+ 
+ 
+\bibliographystyle{plain}
+\bibliography{biblio}
+
+\end{document}
+
